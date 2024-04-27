@@ -1,0 +1,118 @@
+/* Estilo Geral */
+* {
+    margin: 0; /* Remove as margens padrão */
+    padding: 0; /* Remove os preenchimentos padrão */
+    box-sizing: border-box; /* Garante que o tamanho total do elemento inclua preenchimento e borda */
+    font-family: "Poppins", sans-serif; /* Define a família de fontes padrão */
+}
+
+body {
+    background-color: #1b1b1b; /* Define a cor de fundo do corpo */
+    height: 100vh; /* Define a altura do corpo como 100% da altura da viewport */
+}
+
+.interface {
+    max-width: 1280px; /* Define a largura máxima da interface */
+    margin: 0 auto; /* Centraliza a interface horizontalmente na página */
+}
+
+.flex{
+    display: flex;    
+}
+
+/* Estilo do Cabeçalho */
+header {
+    padding: 10px 4%; /* Define o preenchimento do cabeçalho */
+}
+
+header > .interface {
+    display: flex; /* Usa um layout flexível para os elementos filhos */
+    align-items: center; /* Centraliza verticalmente os elementos filhos */
+    justify-content: space-between; /* Distribui os elementos filhos com espaço entre eles */
+}
+
+header a {
+    color: #dfdfdf; /* Define a cor dos links no cabeçalho */
+    text-decoration: none; /* Remove a decoração de sublinhado dos links */
+    display: inline-block; /* Exibe os links como elementos em linha */
+    transition: .2s; /* Adiciona uma transição suave para mudanças de estilo */
+}
+
+header a:hover {
+    color: #cac717; /* Muda a cor dos links quando o cursor passa sobre eles */
+    transform: scale(1.10); /* Aumenta ligeiramente o tamanho dos links ao passar o cursor sobre eles */
+}
+
+header nav ul {
+    list-style-type: none; /* Remove os marcadores de lista */
+}
+
+header nav ul li {
+    display: inline-block; /* Exibe os itens da lista em linha */
+    padding: 0 10px; /* Adiciona espaçamento aos itens da lista */
+}
+
+.logo img {
+    max-width: 500px; /* Define a largura máxima da imagem da logo */
+    height: auto; /* Mantém a proporção da imagem */
+}
+
+.btn-contato button {
+    padding: 10px 20px; /* Define o preenchimento do botão de contato */
+    font-size: 18px; /* Define o tamanho da fonte do botão */
+    font-weight: 600; /* Define o peso da fonte do botão */
+    background-color: #cac717; /* Define a cor de fundo do botão de contato */
+    border: 0; /* Remove a borda do botão de contato */
+    border-radius: 30px; /* Define o raio da borda do botão de contato */
+    cursor: pointer; /* Define o cursor como apontador */
+    transition: .2s;
+}
+
+ .btn-contato button:hover {
+    box-shadow: 0px 0px 8px #cac717; /* Adiciona uma sombra ao botão de contato quando o cursor passa sobre ele */
+    transform: scale(1.10);
+}
+
+/*ESTILO DO TOPO DO SITE*/
+
+section.topo-do-site{
+    padding: 40px 4%;
+}
+
+section.topo-do-site.flex{
+
+    align-items: center;
+    justify-content: center;
+    gap: 90px;
+}
+
+.topo-do-site h1{
+color: #fff;
+font-size: 42px;
+line-height: 40px;
+}
+
+.topo-do-site h1 span{
+    color: #cac717;
+}
+
+.topo-do-site .txt-topo-site p{
+    color: #fff;
+    margin: 40px 0;
+}
+
+.topo-do-site .img-topo-site img{
+
+   position: relative;
+   animation: flutuar 2s ease-in-out infinite alternate; 
+}
+
+@keyframes flutuar{
+    0%{
+        top: 0;
+
+    }
+    100%{
+        top: 30px;
+    }
+}

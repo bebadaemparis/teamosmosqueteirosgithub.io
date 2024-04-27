@@ -1,0 +1,197 @@
+<style>
+body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: #2f2f2f;
+    color: #fff;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+  }
+  
+  #quiz-container {
+    display: none;
+    margin-top: 20px;
+  }
+  
+  #question {
+  color: #000; /* Define a cor da pergunta como preta */
+  font-size: 16px;
+  margin-bottom: 20px;
+  padding: 10px; /* Aumenta o espaçamento interno da pergunta */
+  text-align: center;
+  background-color: #fff;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+#answers {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Estilo para as respostas do lado esquerdo */
+#answers .left {
+  grid-column: 1; /* Define a posição da coluna para as respostas da esquerda */
+}
+
+/* Estilo para as respostas do lado direito */
+#answers .right {
+  grid-column: 2; /* Define a posição da coluna para as respostas da direita */
+}
+
+/* Estilo para as respostas de cada lado */
+button {
+  font-size: 20px;
+  padding: 5px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 30%;
+}
+
+/* Adiciona um estilo para o hover dos botões */
+button:hover {
+  background-color: #0056b3;
+}
+
+
+  
+  .logo {
+    margin: 20px auto; /* Centraliza a logo na tela */
+    display: block; /* Transforma a logo em um bloco para centralizar */
+  }
+  
+  #player-name {
+    border: 2px solid yellow; /* Adiciona uma borda amarela ao redor do campo de digitar o nome */
+    padding: 5px; /* Adiciona um espaçamento interno ao campo */
+    margin-top: 20px; /* Adiciona uma margem superior para afastar o campo um pouco mais para baixo */
+  }
+  
+  /* Adiciona uma borda amarela ao redor do formulário */
+  #start-container {
+    border: 2px solid yellow;
+    padding: 100px;
+    margin-top: 20px; /* Centraliza o formulário na tela */
+    max-width: 400px; /* Define a largura máxima do formulário */
+   
+  }
+
+ /* Botões de respostas */
+#answers {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: center; /* Centraliza os botões horizontalmente */
+  border: 2px solid yellow; /* Adiciona uma borda amarela ao redor dos botões */
+  padding: 10px; /* Adiciona um espaçamento interno */
+}
+
+/* Estilo para os botões */
+#answers button {
+  font-size: 16px;
+  padding: 10px;
+  width: 40%;
+  transition: transform 0.3s, background-color 0.3s; /* Adiciona uma transição suave ao passar o mouse */
+}
+
+/* Efeito ao passar o mouse */
+#answers button:hover {
+  transform: scale(1.1); /* Aumenta o tamanho do botão em 10% */
+  background-color: #0056b3; /* Muda a cor de fundo ao passar o mouse */
+}
+
+/* Estilo para a resposta correta */
+.correct {
+  background-color: #28a745 !important; /* Define a cor de fundo como verde */
+}
+
+/* Estilo para a resposta incorreta */
+.incorrect {
+  background-color: #dc3545 !important; /* Define a cor de fundo como vermelho */
+}
+
+table {
+    border-collapse: collapse;
+    width: 20%;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.trophy::before {
+    content: "\1F3C6"; /* Código Unicode para o ícone de troféu */
+    margin-right: 5px; /* Espaçamento entre o ícone e o texto */
+}
+
+
+
+
+</style> 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Game</title>
+</head>
+<body>
+<!-- Adicione o Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js"></script>
+<!-- Se precisar de compatibilidade com navegadores mais antigos -->
+<script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-compat.js"></script>
+
+
+<header>
+  <div class="logo">
+    <a href="index.html">
+      <img src="imagens/logo amarelo rodape.png" alt="Logo">
+    </a>
+  </div>
+</header>
+<table id="ranking-table">
+    <tr>
+      <th>Posição</th>
+      <th>Nome</th>
+      <th>Pontuação</th>
+    </tr>
+  </table>
+  <td>
+ 
+  </td>
+<header>
+  <h1 id="quiz-title">DIGITE O SEU NOME ABAIXO PARA INICIAR O QUIZ.</h1>
+</header>
+<div class="container" id="start-container">
+  <label for="player-name">Digite seu nome:</label>
+  <input type="text" id="player-name">
+  <button onclick="startQuiz()">Jogar</button>
+</div>
+<div id="quiz-container">
+  <p id="question"></p>
+  <div id="answers"></div>
+  <p id="score">Pontuação: <span id="score-value">0</span></p>
+  <p id="timer">Tempo restante: <span id="timer-value">15</span> segundos</p>
+  <script src="quiz.js"></script>
+</div>
+</script>
+</body>
+</html>

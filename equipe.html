@@ -1,0 +1,248 @@
+<style>
+/* Estilo da seção de equipe */
+.equipe {
+    background-color: #1b1b1b; /* Cor de fundo da seção */
+    color: #fff; /* Cor do texto */
+    padding: 40px 4%; /* Espaçamento interno */
+}
+
+.equipe h1 {
+    text-align: center; /* Centraliza o título */
+    margin-bottom: 40px; /* Espaçamento inferior */
+    font-size: 35px;
+    line-height: 40px;
+
+}
+
+.equipe-container {
+    display: flex; /* Layout flexível para os membros da equipe */
+    flex-wrap: wrap; /* Permite que os membros quebrem para a próxima linha */
+    justify-content: space-around; /* Distribui os membros com espaço entre eles */
+    cursor: pointer;
+}
+
+.membro {
+    text-align: center; /* Centraliza o conteúdo do membro */
+    width: calc(25% - 20px); /* Calcula a largura para 4 membros por linha com espaçamento */
+    margin-bottom: 40px; /* Espaçamento inferior */
+    position: relative; /* Posição relativa para o zoom */
+    overflow: hidden; /* Esconde a área fora do limite */
+}
+
+.membro img {
+    border-radius: 50%; /* Deixa a imagem com bordas arredondadas */
+    max-width: 70%; /* Define a largura máxima da imagem */
+    height: auto; /* Mantém a proporção da imagem */
+    transition: transform 0.3s ease; /* Adiciona uma transição suave */
+}
+
+.membro:hover img {
+    transform: scale(1.1); /* Aumenta ligeiramente a imagem ao passar o mouse */
+}
+
+.info {
+    background-color: rgba(0, 0, 0, 0.8); /* Cor de fundo da caixa de informações */
+    color: #fff; /* Cor do texto */
+    padding: 20px; /* Espaçamento interno */
+    border-radius: 10px; /* Bordas arredondadas */
+    position: absolute; /* Posição absoluta para a caixa de informações */
+    bottom: 0; /* Alinha a caixa de informações na parte inferior */
+    left: 0; /* Alinha a caixa de informações à esquerda */
+    width: 100%; /* Largura total */
+    transform: translateY(100%); /* Move a caixa de informações para fora da tela */
+    transition: transform 0.3s ease; /* Adiciona uma transição suave */
+}
+
+.membro:hover .info {
+    transform: translateY(0); /* Mostra a caixa de informações ao passar o mouse */
+}
+
+.logo img {
+    max-width: 500px; /* Define a largura máxima da imagem da logo */
+    height: auto; /* Mantém a proporção da imagem */
+}
+
+
+.equipe-container{
+
+position: relative;
+animation: flutuar 2s ease-in-out infinite alternate; 
+}
+
+@keyframes flutuar{
+ 0%{
+     top: 0;
+
+ }
+ 100%{
+     top: 30px;
+ }
+}
+
+</style>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <title>Fotos</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html">
+                <img src="imagens/logo amarelo rodape.png" alt="Logo">
+            </a>
+        </div>
+    </header>
+
+    <section class="equipe">
+        <div class="interface">
+            <h1>Nossa Equipe</h1>
+            <hr color="#cac717">
+            <div class="equipe-container">
+                <div class="membro">
+                    <img src="fotos_equipe/xandy.jpg" alt="Membro 1">
+                    <div class="info">
+                        <h3>Nome do Membro</h3>
+                        <p>Idade: 25 anos</p>
+                        <p>Curso: Design Gráfico</p>
+                        <p>Hobby: Fotografia</p>
+                        <p>Sonho: Viajar pelo mundo</p>
+                    </div>
+                </div>
+                <div class="membro">
+                    <img src="fotos_equipe/karlos.jpg" alt="Membro 2">
+                    <div class="info">
+                        <h3>Nome do Membro</h3>
+                        <p>Idade: 22 anos</p>
+                        <p>Curso: Engenharia Civil</p>
+                        <p>Hobby: Esportes</p>
+                        <p>Sonho: Construir sua própria casa</p>
+                    </div>
+                </div>
+
+                <div class="membro">
+                    <img src="fotos_equipe/Agata.jpeg" alt="Membro 3">
+                    <div class="info">
+                        <h3>Nome do Membro</h3>
+                        <p>Idade: 22 anos</p>
+                        <p>Curso: Engenharia Civil</p>
+                        <p>Hobby: Esportes</p>
+                        <p>Sonho: Construir sua própria casa</p>
+                    </div>
+                </div>
+
+                <div class="membro">
+                    <img src="fotos_equipe/dan.jpeg" alt="Membro 4">
+                    <div class="info">
+                        <h3>Nome do Membro</h3>
+                        <p>Idade: 22 anos</p>
+                        <p>Curso: Engenharia Civil</p>
+                        <p>Hobby: Esportes</p>
+                        <p>Sonho: Construir sua própria casa</p>
+                    </div>
+                </div>
+
+                <div class="membro">
+                    <img src="fotos_equipe/danilo.png" alt="Membro 5">
+                    <div class="info">
+                        <h3>Nome do Membro</h3>
+                        <p>Idade: 22 anos</p>
+                        <p>Curso: Engenharia Civil</p>
+                        <p>Hobby: Esportes</p>
+                        <p>Sonho: Construir sua própria casa</p>
+                    </div>
+                </div>
+
+                <div class="membro">
+                    <img src="fotos_equipe/duda.jpg" alt="Membro 6">
+                    <div class="info">
+                        <h3>Nome do Membro</h3>
+                        <p>Idade: 22 anos</p>
+                        <p>Curso: Engenharia Civil</p>
+                        <p>Hobby: Esportes</p>
+                        <p>Sonho: Construir sua própria casa</p>
+                    </div>
+                </div>
+
+                <div class="membro">
+                    <img src="fotos_equipe/elio.jpg" alt="Membro 7">
+                    <div class="info">
+                        <h3>Nome do Membro</h3>
+                        <p>Idade: 22 anos</p>
+                        <p>Curso: Engenharia Civil</p>
+                        <p>Hobby: Esportes</p>
+                        <p>Sonho: Construir sua própria casa</p>
+                    </div>
+                </div>
+
+                <div class="membro">
+                    <img src="fotos_equipe/jojo.jpg" alt="Membro 8">
+                    <div class="info">
+                        <h3>Nome do Membro</h3>
+                        <p>Idade: 22 anos</p>
+                        <p>Curso: Engenharia Civil</p>
+                        <p>Hobby: Esportes</p>
+                        <p>Sonho: Construir sua própria casa</p>
+                    </div>
+                </div>
+
+                <div class="membro">
+                    <img src="fotos_equipe/jonathan.png" alt="Membro 9">
+                    <div class="info">
+                        <h3>Nome do Membro</h3>
+                        <p>Idade: 22 anos</p>
+                        <p>Curso: Engenharia Civil</p>
+                        <p>Hobby: Esportes</p>
+                        <p>Sonho: Construir sua própria casa</p>
+                    </div>
+                </div>
+
+                <div class="membro">
+                    <img src="fotos_equipe/luz.jpg" alt="Membro 10">
+                    <div class="info">
+                        <h3>Nome do Membro</h3>
+                        <p>Idade: 22 anos</p>
+                        <p>Curso: Engenharia Civil</p>
+                        <p>Hobby: Esportes</p>
+                        <p>Sonho: Construir sua própria casa</p>
+                    </div>
+                </div>
+
+                <div class="membro">
+                    <img src="fotos_equipe/ramiro.jpg" alt="Membro 11">
+                    <div class="info">
+                        <h3>Nome do Membro</h3>
+                        <p>Idade: 22 anos</p>
+                        <p>Curso: Engenharia Civil</p>
+                        <p>Hobby: Esportes</p>
+                        <p>Sonho: Construir sua própria casa</p>
+                    </div>
+                </div>
+
+                <div class="membro">
+                    <img src="fotos_equipe/richard.jpg" alt="Membro 12">
+                    <div class="info">
+                        <h3>Richard</h3>
+                        <p>Idade: 18 anos</p>
+                        <p>Curso: ADS</p>
+                        <p>Hobby: Jogar Roblox e Minecraft</p>
+                        <p>Sonho: ser alguém kkjk</p>
+                    </div>
+                </div>
+
+        </div>
+        </div>
+    </section>
+    <hr color="#cac717">
+    <footer>
+        <img src="imagens/logo amarelo rodape.png" alt="logo_rodapé">
+    
+    </footer>      
+</body>
+</html>

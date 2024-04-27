@@ -1,0 +1,372 @@
+<style>
+/* Estilo da seção de álbum de fotos */
+.album {
+    background-color: #1b1b1b; /* Cor de fundo da seção */
+    color: #fff; /* Cor do texto */
+    padding: 40px 4%; /* Espaçamento interno */
+}
+
+.album h1 {
+    text-align: center; /* Centraliza o título */
+    margin-bottom: 40px; /* Espaçamento inferior */
+}
+
+.album-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* Seis colunas por linha */
+    gap: 20px; /* Espaçamento entre as fotos */
+    justify-content: center; /* Centraliza as fotos horizontalmente */
+}
+
+.album-item {
+    position: relative; /* Posição relativa para o overlay */
+}
+
+.album-item img {
+    width: 100%; /* Largura total */
+    border-radius: 10px; /* Bordas arredondadas */
+    cursor: pointer; /* Cursor de mão ao passar por cima */
+    transition: transform 0.3s ease; /* Adiciona uma transição suave */
+}
+
+.album-item img:hover {
+    transform: scale(1.1); /* Aumenta ligeiramente a imagem ao passar o mouse */
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Garante que o overlay esteja acima de todos os elementos */
+}
+
+.overlay-content {
+  max-width: 80%;
+  text-align: center;
+  position: relative;
+}
+
+.zoomed-image {
+  max-width: 100%;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 99999; /* Garante que o botão de fechar esteja acima de tudo */
+}
+
+/* Estilização do formulário de upload de fotos */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px; /* Ajusta o espaçamento superior */
+    padding: 20px; /* Adiciona um espaçamento interno */
+    border: 2px solid #cac717; /* Adiciona uma borda amarela */
+    border-radius: 10px; /* Bordas arredondadas */
+    max-width: 600px; /* Limita a largura do formulário */
+    margin-left: auto; /* Centraliza o formulário na horizontal */
+    margin-right: auto; /* Centraliza o formulário na horizontal */
+    background-color: #1b1b1b; /* Cor de fundo do formulário */
+}
+
+.album h1 {
+    text-align: center; /* Centraliza o título */
+    margin-bottom: 40px; /* Espaçamento inferior */
+    font-size: 35px;
+    line-height: 40px;
+
+}
+
+input[type="file"],
+input[type="text"],
+input[type="password"],
+button {
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    width: 100%; /* Ocupa a largura total do formulário */
+    box-sizing: border-box; /* Inclui padding e borda na largura total */
+    background-color: #fff; /* Cor de fundo dos campos */
+}
+
+button {
+    background-color: #cac717;
+    color: #1b1b1b;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #a0a000;
+}
+
+
+/*Estilização das fotos que serãp upload no site*/
+/* Estilo das fotos uploadadas */
+.uploaded-image {
+    position: relative;
+    display: inline-block;
+    border: 3px solid #cac717; /* Borda amarela */
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    width: 15%; /* Tamanho da foto */
+    margin-right: 20px; /* Espaçamento entre as fotos */
+}
+
+.uploaded-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px; /* Bordas arredondadas */
+}
+
+.uploaded-image:hover {
+    transform: scale(1.1); /* Aumenta ligeiramente a imagem ao passar o mouse */
+}
+
+.uploaded-image .image-info {
+    background-color: #cac717; /* Fundo amarelo */
+    color: #000; /* Texto preto */
+    font-family: 'Poppins', sans-serif; /* Fonte da página */
+    font-size: 14px;
+    padding: 5px 10px;
+    text-align: center;
+}
+
+.uploaded-image .delete-button {
+    position: absolute;
+    top: 10px; /* Ajusta a posição vertical */
+    right: 10px; /* Ajusta a posição horizontal */
+    background-color: #cac717; /* Cor de fundo amarela */
+    color: #1b1b1b; /* Cor do texto */
+    border: none;
+    border-radius: 5px;
+    width: 70px; /* Largura do botão */
+    height: 50px; /* Altura do botão */
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif; /* Fonte da página */
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.uploaded-image .delete-button:hover {
+    background-color: #a0a000; /* Cor de fundo amarela mais escura ao passar o mouse */
+}
+
+
+
+
+
+
+</style>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<title>Álbum de Fotos</title>
+</head>
+<body>
+<header>
+
+      
+    <div class="logo">
+        <a href="index.html">
+            <img src="imagens/logo amarelo rodape.png" alt="Logo">
+        </a>
+    </div>
+</header>
+
+<section class="album">
+    <h1>Fotos</h1>
+    <div class="container">
+        <form id="upload-form" method="post">
+            <input type="file" id="file-input" name="arquivo">
+            <input type="text" id="descricao" placeholder="Descrição da foto">
+            <input type="password" id="senha" placeholder="Senha">
+            <button type="button" id="upload-button">Enviar Foto</button>
+        </form> 
+
+</section>
+<div class="image-gallery" id="image-gallery"></div>
+</div>
+<hr color="#cac717">
+
+<footer>
+    <img src="imagens/logo amarelo rodape.png" alt="logo_rodapé">
+</footer>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-storage.js";
+    import { getDatabase, ref as dbRef, push, onChildAdded, orderByChild, get, remove } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
+    import { getFirestore, collection, addDoc, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyD3fmiWzxfZ6moBm1AfGb83r58QCgXi7V8",
+        authDomain: "team-os-mosqueteiros.firebaseapp.com",
+        projectId: "team-os-mosqueteiros",
+        storageBucket: "team-os-mosqueteiros.appspot.com",
+        messagingSenderId: "714464364802",
+        appId: "1:714464364802:web:557248e064c01a13e39a1b"
+ 
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const storage = getStorage(app);
+    const storageRef = ref(storage, 'imagens'); 
+    const db = getDatabase(app);
+    const imagesRef = dbRef(db, 'imagens');
+    const firestore = getFirestore(app);
+    const imagesCollection = collection(firestore, 'imagens');
+
+    const fileInput = document.getElementById('file-input');
+    const descricaoInput = document.getElementById('descricao');
+    const senhaInput = document.getElementById('senha');
+    const uploadButton = document.getElementById('upload-button');
+    const imageGallery = document.getElementById('image-gallery');
+
+    
+    
+
+
+
+    const senhaPermitida = '99660735sS@';
+
+    uploadButton.addEventListener('click', () => {
+        if (senhaInput.value !== senhaPermitida) {
+            alert('Senha incorreta. Envio não autorizado.');
+            return;
+        }
+
+        const file = fileInput.files[0];
+        if (!file) {
+            alert('Selecione um arquivo para enviar.');
+            return;
+        }
+
+        const fileName = file.name;
+        const fileRef = ref(storageRef, fileName);
+        const descricao = descricaoInput.value; // Salva o valor da descrição
+
+        uploadBytes(fileRef, file).then(() => {
+            getDownloadURL(fileRef).then((url) => {
+                addImageToGallery(url, descricao); // Utiliza a descrição salva
+                descricaoInput.value = '';
+                // Salvar a URL e a descrição no Firestore
+                addDoc(imagesCollection, { url: url, descricao: descricao });
+            });
+        }).catch((error) => {
+            console.error('Error uploading file:', error);
+            alert('Erro ao fazer o upload: ' + error.message);
+        });
+    });
+
+   const addImageToGallery = (url, description) => {
+    const imageElement = document.createElement('div');
+    imageElement.className = 'uploaded-image';
+    imageElement.innerHTML = `
+        <button class="delete-button">Excluir</button>
+        <img src="${url}" alt="Uploaded Image">
+        <div class="image-info">${description}</div>
+    `;
+
+    imageGallery.appendChild(imageElement);
+
+    // Adiciona evento de clique ao botão de excluir
+    const deleteButton = imageElement.querySelector('.delete-button');
+    deleteButton.addEventListener('click', () => {
+        const confirmation = prompt('Digite a senha para excluir a foto:');
+        if (confirmation === senhaPermitida) {
+            deleteImage(url, imageElement); // Passa o elemento para a função de exclusão
+        } else {
+            alert('Senha incorreta. Exclusão não autorizada.');
+        }
+    });
+};
+
+const deleteImage = (url, imageElement) => {
+    // Cria uma referência direta ao arquivo no Storage
+    const imageRef = ref(storage, url);
+
+    // Exclui o arquivo do Storage
+    deleteObject(imageRef).then(() => {
+        console.log('Imagem excluída com sucesso do Storage.');
+
+        // Remove a imagem do Firestore
+        getDocs(imagesCollection).then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                const image = doc.data();
+                if (image.url === url) {
+                    deleteDoc(doc.ref).then(() => {
+                        console.log('Imagem excluída com sucesso do Firestore.');
+                    }).catch((error) => {
+                        console.error('Erro ao excluir imagem do Firestore:', error);
+                        alert('Erro ao excluir a imagem: ' + error.message);
+                    });
+                }
+            });
+        });
+
+        // Remove o elemento da imagem da galeria
+        imageGallery.removeChild(imageElement);
+
+    }).catch((error) => {
+        console.error('Erro ao excluir imagem do Storage:', error);
+        alert('Erro ao excluir a imagem: ' + error.message);
+    });
+};
+
+
+    // Função para carregar as imagens do Firestore ao inicializar a página
+    const loadImagesFromFirestore = () => {
+        getDocs(imagesCollection).then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                const image = doc.data();
+                addImageToGallery(image.url, image.descricao);
+            });
+        });
+    };
+
+    // Chama a função para carregar as imagens ao carregar a página
+    window.addEventListener('load', loadImagesFromFirestore);
+
+    
+
+</script>
+</body>
+</html>

@@ -1,0 +1,324 @@
+<style>
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px; /* Ajusta o espaçamento superior */
+    padding: 20px; /* Adiciona um espaçamento interno */
+    border: 2px solid #cac717; /* Adiciona uma borda amarela */
+    border-radius: 10px; /* Bordas arredondadas */
+    max-width: 600px; /* Limita a largura do formulário */
+    margin-left: auto; /* Centraliza o formulário na horizontal */
+    margin-right: auto; /* Centraliza o formulário na horizontal */
+    background-color: #1b1b1b; /* Cor de fundo do formulário */
+}
+
+.album h1 {
+    text-align: center; /* Centraliza o título */
+    margin-bottom: 40px; /* Espaçamento inferior */
+    font-size: 35px;
+    line-height: 40px;
+    color: #fff;
+}
+ /* Estilos adicionais para vídeos */
+ /* Estilos para os vídeos adicionados */
+
+input[type="file"],
+input[type="text"],
+input[type="password"],
+button {
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    width: 100%; /* Ocupa a largura total do formulário */
+    box-sizing: border-box; /* Inclui padding e borda na largura total */
+    background-color: #fff; /* Cor de fundo dos campos */
+}
+
+button {
+    background-color: #cac717;
+    color: #1b1b1b;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #a0a000;
+}
+
+.album {
+            padding: 40px 4%;
+        }
+
+        .album h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .album-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .album-item {
+            position: relative;
+        }
+
+        .album-item video {
+            width: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .album-item video:hover {
+            transform: scale(1.1);
+        }
+
+        .uploaded-video {
+    position: relative;
+    display: inline-block;
+    border: 3px solid #cac717; /* Borda amarela */
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    width: 15%; /* Tamanho do vídeo */
+    margin-right: 20px; /* Espaçamento entre os vídeos */
+}
+
+.uploaded-video video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px; /* Bordas arredondadas */
+}
+
+.uploaded-video:hover {
+    transform: scale(1.1); /* Aumenta ligeiramente o vídeo ao passar o mouse */
+}
+
+.uploaded-video .video-info {
+    background-color: #cac717; /* Fundo amarelo */
+    color: #000; /* Texto preto */
+    font-family: 'Poppins', sans-serif; /* Fonte da página */
+    font-size: 14px;
+    padding: 5px 10px;
+    text-align: center;
+}
+
+.uploaded-video .delete-button {
+    position: absolute;
+    top: 10px; /* Ajusta a posição vertical */
+    right: 10px; /* Ajusta a posição horizontal */
+    background-color: #cac717; /* Cor de fundo amarela */
+    color: #1b1b1b; /* Cor do texto */
+    border: none;
+    border-radius: 5px;
+    width: 70px; /* Largura do botão */
+    height: 50px; /* Altura do botão */
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif; /* Fonte da página */
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.uploaded-video .delete-button:hover {
+    background-color: #a0a000; /* Cor de fundo amarela mais escura ao passar o mouse */
+}
+
+</style>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<title>Álbum de Vídeos</title>
+</head>
+<body>
+<header>
+    <div class="logo">
+        <a href="index.html">
+            <img src="imagens/logo amarelo rodape.png" alt="Logo">
+        </a>
+    </div>
+</header>
+
+<section class="album">
+    <h1>Vídeos</h1>
+    <div class="container">
+        <form id="upload-form" method="post">
+            <input type="file" id="file-input" name="arquivo">
+            <input type="text" id="descricao" placeholder="Descrição do vídeo">
+            <input type="password" id="senha" placeholder="Senha">
+            <button type="button" id="upload-button">Enviar Vídeo</button>
+        </form> 
+        </div>
+        </section>
+
+        <div class="video-gallery" id="video-gallery">
+        </div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-storage.js";
+    import { getDatabase, ref as dbRef, push, onChildAdded, orderByChild, get, remove } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
+    import { getFirestore, collection, addDoc, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+  apiKey: "AIzaSyD3fmiWzxfZ6moBm1AfGb83r58QCgXi7V8",
+  authDomain: "team-os-mosqueteiros.firebaseapp.com",
+  databaseURL: "https://team-os-mosqueteiros-default-rtdb.firebaseio.com",
+  projectId: "team-os-mosqueteiros",
+  storageBucket: "team-os-mosqueteiros.appspot.com",
+  messagingSenderId: "714464364802",
+  appId: "1:714464364802:web:557248e064c01a13e39a1b"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const storage = getStorage(app);
+    const db = getDatabase(app);
+    const videosRef = dbRef(db, 'videos');
+    const videoCollection = collection(getFirestore(app), 'videos');
+
+    const fileInput = document.getElementById('file-input');
+    const descricaoInput = document.getElementById('descricao');
+    const senhaInput = document.getElementById('senha');
+    const uploadButton = document.getElementById('upload-button');
+    const videoGallery = document.getElementById('video-gallery');
+
+    const senhaPermitida = '99660735sS@';
+
+    uploadButton.addEventListener('click', () => {
+        if (senhaInput.value !== senhaPermitida) {
+            alert('Senha incorreta. Envio não autorizado.');
+            return;
+        }
+
+        const file = fileInput.files[0];
+        if (!file) {
+            alert('Selecione um arquivo para enviar.');
+            return;
+        }
+
+        const fileName = file.name;
+        const fileRef = ref(storage, 'videos/' + fileName);
+        const descricao = descricaoInput.value; // Salva o valor da descrição
+
+        uploadBytes(fileRef, file)
+            .then(() => getDownloadURL(fileRef))
+            .then((url) => {
+                addVideoToGallery(url, descricao);
+                descricaoInput.value = '';
+                addDoc(videoCollection, { url: url, descricao: descricao });
+                fileInput.value = ''; // Limpa o input de arquivo após o upload
+            })
+            .catch((error) => {
+                console.error('Error uploading file:', error);
+                alert('Erro ao fazer o upload: ' + error.message);
+            });
+    });
+
+    const addVideoToGallery = (url, descricao) => {
+    if (!url.includes('firebase')) {
+        return; // Se o vídeo não foi enviado pelo usuário, não faz nada
+    }
+
+    const videoElement = document.createElement('div');
+    videoElement.className = 'uploaded-video';
+
+    const video = document.createElement('video');
+    video.src = url;
+    video.alt = 'Uploaded Video';
+    video.controls = true;
+    video.className = 'video-border'; // Adiciona a classe para a borda amarela
+
+    const deleteButton = document.createElement('button');
+    deleteButton.className = 'delete-button';
+    deleteButton.innerText = 'Excluir';
+    deleteButton.addEventListener('click', () => {
+        const confirmation = prompt('Digite a senha para excluir o vídeo:');
+        if (confirmation === senhaPermitida) {
+            deleteVideo(url, videoElement);
+        } else {
+            alert('Senha incorreta. Exclusão não autorizada.');
+        }
+    });
+
+    const videoInfo = document.createElement('div');
+    videoInfo.className = 'video-info';
+    videoInfo.textContent = descricao;
+
+    videoElement.appendChild(video);
+    videoElement.appendChild(deleteButton);
+    videoElement.appendChild(videoInfo); // Adiciona a descrição dentro do elemento
+
+    videoGallery.appendChild(videoElement);
+
+    video.onloadeddata = () => {
+        // Mostra o botão de excluir e a descrição após o carregamento
+        deleteButton.style.display = 'block';
+        videoInfo.style.display = 'block';
+    };
+};
+
+
+    const deleteVideo = (url, videoElement) => {
+        const videoRef = ref(storage, url);
+
+        deleteObject(videoRef)
+            .then(() => {
+                console.log('Vídeo excluído com sucesso do Storage.');
+
+                getDocs(videoCollection).then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        const video = doc.data();
+                        if (video.url === url) {
+                            deleteDoc(doc.ref)
+                                .then(() => {
+                                    console.log('Vídeo excluído com sucesso do Firestore.');
+                                })
+                                .catch((error) => {
+                                    console.error('Erro ao excluir o vídeo do Firestore:', error);
+                                    alert('Erro ao excluir o vídeo: ' + error.message);
+                                });
+                        }
+                    });
+                });
+
+                videoGallery.removeChild(videoElement);
+            })
+            .catch((error) => {
+                console.error('Erro ao excluir vídeo do Storage:', error);
+                alert('Erro ao excluir o vídeo: ' + error.message);
+            });
+    };
+
+    const loadVideosFromFirestore = () => {
+        getDocs(videoCollection).then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                const video = doc.data();
+                addVideoToGallery(video.url, video.descricao);
+});
+});
+};
+window.addEventListener('load', loadVideosFromFirestore);
+</script>
+<hr color="#cac717">
+<footer>
+    <img src="imagens/logo amarelo rodape.png" alt="logo_rodapé">
+</footer>
+</body>
+</html>
